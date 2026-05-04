@@ -102,7 +102,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden fixed inset-0 top-20 bg-ivory/98 backdrop-blur-md"
+            className="lg:hidden fixed inset-0 top-20 bg-ivory overflow-y-auto"
           >
             <div className="px-6 py-10 flex flex-col gap-1">
               {navLinks.map((l, i) => (
