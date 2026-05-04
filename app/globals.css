@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #faf7f2;
+  --bg-surface: #ffffff;
+  --bg-muted: #f2ebdf;
+  --accent-oak: #8b6f47;
+  --accent-oak-deep: #6b4e2e;
+  --accent-gold: #c9a96e;
+  --ink-primary: #2a1d12;
+  --ink-secondary: #6e625a;
+  --ink-muted: #a8998a;
+  --line: #e8e0d3;
+}
+
+@theme inline {
+  --color-ivory: var(--bg-primary);
+  --color-surface: var(--bg-surface);
+  --color-cream: var(--bg-muted);
+  --color-oak: var(--accent-oak);
+  --color-oak-deep: var(--accent-oak-deep);
+  --color-gold: var(--accent-gold);
+  --color-espresso: var(--ink-primary);
+  --color-taupe: var(--ink-secondary);
+  --color-ash: var(--ink-muted);
+  --color-line: var(--line);
+
+  --font-display: var(--font-playfair);
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-inter);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--ink-primary);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent-gold);
+  color: var(--ink-primary);
+}
+
+.font-display {
+  font-family: var(--font-playfair), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.font-serif-italic {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+}
+
+.eyebrow {
+  font-family: var(--font-inter), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent-oak);
+}
+
+.divider-gold {
+  display: inline-block;
+  width: 48px;
+  height: 1px;
+  background: var(--accent-gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
