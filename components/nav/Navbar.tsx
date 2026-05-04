@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { business, navLinks } from "@/lib/content";
 
 export function Navbar() {
@@ -13,7 +12,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [lastPath, setLastPath] = useState(pathname);
   const isHome = pathname === "/";
-  const transparent = isHome && !scrolled;
+  const transparent = isHome && !scrolled && !open;
 
   if (pathname !== lastPath) {
     setLastPath(pathname);
@@ -37,19 +36,21 @@ export function Navbar() {
   const ink = transparent ? "text-ivory" : "text-espresso";
   const bar = transparent
     ? "bg-transparent"
-    : "bg-ivory/90 backdrop-blur-md border-b border-line";
+    : "bg-ivory border-b border-line";
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${bar}`}
+      className={`fixed top-0 inset-x-0 z-50 transition-colors duration-500 ${bar}`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between relative z-[60]">
         <Link
           href="/"
           aria-label={business.name}
           className={`font-display text-xl md:text-2xl tracking-wide ${ink}`}
         >
-          <span>Ash <span className="font-serif-italic text-gold">&amp;</span> Oak</span>
+          <span>
+            Ash <span className="font-serif-italic text-gold">&amp;</span> Oak
+          </span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-9">
@@ -87,52 +88,44 @@ export function Navbar() {
         </div>
 
         <button
+          type="button"
           aria-label={open ? "Close menu" : "Open menu"}
-          className={`lg:hidden ${ink}`}
+          aria-expanded={open}
+          className={`lg:hidden p-2 -mr-2 ${ink}`}
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden fixed inset-0 top-20 bg-ivory overflow-y-auto"
+      <div
+        className={`lg:hidden fixed inset-x-0 bottom-0 top-20 bg-ivory overflow-y-auto transition-opacity duration-300 ${
+          open
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+        aria-hidden={!open}
+      >
+        <div className="px-6 py-10 flex flex-col gap-1">
+          {navLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="block py-4 font-display text-3xl text-espresso border-b border-line"
+            >
+              {l.label}
+            </Link>
+          ))}
+          <a
+            href={business.phoneHref}
+            onClick={() => setOpen(false)}
+            className="mt-8 inline-flex items-center justify-center gap-2 bg-espresso text-ivory py-4 text-sm uppercase tracking-[0.22em]"
           >
-            <div className="px-6 py-10 flex flex-col gap-1">
-              {navLinks.map((l, i) => (
-                <motion.div
-                  key={l.href}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 * i, duration: 0.4 }}
-                >
-                  <Link
-                    href={l.href}
-                    className="block py-4 font-display text-3xl text-espresso border-b border-line"
-                  >
-                    {l.label}
-                  </Link>
-                </motion.div>
-              ))}
-              <motion.a
-                href={business.phoneHref}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
-                className="mt-8 inline-flex items-center justify-center gap-2 bg-espresso text-ivory py-4 text-sm uppercase tracking-[0.22em]"
-              >
-                <Phone className="w-4 h-4" /> Reserve Now
-              </motion.a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <Phone className="w-4 h-4" /> Reserve Now
+          </a>
+        </div>
+      </div>
     </header>
   );
 }
