@@ -1,25 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #faf7f2;
+  --bg-primary: #fbf8f3;
   --bg-surface: #ffffff;
-  --bg-muted: #f2ebdf;
+  --bg-muted: #ebdfc8;
+  --bg-deep: #1a110a;
   --accent-oak: #8b6f47;
   --accent-oak-deep: #6b4e2e;
   --accent-gold: #c9a96e;
+  --accent-gold-light: #e3c590;
   --ink-primary: #2a1d12;
   --ink-secondary: #6e625a;
   --ink-muted: #a8998a;
-  --line: #e8e0d3;
+  --line: #ddd1ba;
+  --shadow-card: 0 1px 2px rgba(42, 29, 18, 0.04), 0 8px 24px rgba(42, 29, 18, 0.08);
+  --shadow-card-hover: 0 4px 8px rgba(42, 29, 18, 0.06), 0 16px 40px rgba(42, 29, 18, 0.14);
 }
 
 @theme inline {
   --color-ivory: var(--bg-primary);
   --color-surface: var(--bg-surface);
   --color-cream: var(--bg-muted);
+  --color-deep: var(--bg-deep);
   --color-oak: var(--accent-oak);
   --color-oak-deep: var(--accent-oak-deep);
   --color-gold: var(--accent-gold);
+  --color-gold-light: var(--accent-gold-light);
   --color-espresso: var(--ink-primary);
   --color-taupe: var(--ink-secondary);
   --color-ash: var(--ink-muted);
@@ -71,6 +77,42 @@ body {
   width: 48px;
   height: 1px;
   background: var(--accent-gold);
+}
+
+.card-elevated {
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-elevated:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+.section-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.section-rule::before,
+.section-rule::after {
+  content: "";
+  height: 1px;
+  width: 80px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-gold) 50%,
+    transparent
+  );
+}
+.section-rule .diamond {
+  width: 7px;
+  height: 7px;
+  transform: rotate(45deg);
+  background: var(--accent-gold);
+  display: inline-block;
 }
 
 @media (prefers-reduced-motion: reduce) {

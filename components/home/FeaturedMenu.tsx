@@ -22,7 +22,7 @@ export function FeaturedMenu() {
         <div className="grid md:grid-cols-3 gap-8 mt-16">
           {homeFeatured.map((item, i) => (
             <Reveal key={item.title} delay={i * 0.1}>
-              <article className="group bg-surface overflow-hidden">
+              <article className="group bg-surface overflow-hidden card-elevated border border-line/60">
                 <div className="aspect-[4/5] overflow-hidden">
                   <img
                     src={item.image}
@@ -36,6 +36,7 @@ export function FeaturedMenu() {
                   <p className="text-taupe mt-3 text-sm leading-relaxed">
                     {item.blurb}
                   </p>
+                  <div className="mt-5 h-px bg-gold/40 w-12 group-hover:w-20 transition-[width] duration-500" />
                 </div>
               </article>
             </Reveal>
